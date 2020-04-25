@@ -1,25 +1,32 @@
-#include <stdio.h>
 #include <stdlib.h>
 #include <mpi.h>
+#include <stdio.h>
 
-main(int argc, char **argv)
-{
-    int argc;
-    char **argv;
+int main(int argc, char** argv) {
+// Initialize the MPI environment. The two arguments to MPI Init are not
+// currently used by MPI implementations, but are there in case future
+// implementations might need the arguments.
+MPI_Init(NULL, NULL);
 
-    char message[99];
-    int node;
-    MPI_Status status;
+// Get the number of processes
+int world_size;
+MPI_Comm_size(MPI_COMM_WORLD, &world_size);
 
-    MPI_Init(&argc, &argv);
-    MPI_Comm_rank(MPI_COMM_WORLD, &node);
-    if(node ==0){ // Codigo para el proceso 0
-        MPI_Recv(message,strlen(message), MPI_CHAR,1,99,MPI_COMM_WORLD, &status);
-        printf("Hola, soy el proceso 1 y recibo : %s", &message);
-    }else
-    {
-        strcpy(message,"Saludos desde el proceso %d", node);
-        MPI_Send(message,strlen(message), MPI_CHAR,0,99,MPI_COMM_WORLD);
-    }
-    
+// Get the rank of the process
+int world_rank;
+MPI_Comm_rank(MPI_COMM_WORLD, &world_rank);
+
+// Get the name of the processor
+char processor_name[MPI_MAX_PROCESSOR_NAME];
+int name_len;
+MPI_Get_processor_name(processor_name, &name_len);
+if(strcmp(processor_name,"nodo1")== 1){
+    printf("Entré al loop");
+}
+// Print off a hello world message
+printf("Hello world from processor %s, rank %d out of %d processors\n",
+processor_name, world_rank, world_size);
+
+// Finalize the MPI environment. No more MPI calls can be made after this
+MPI_Finalize();
 }
