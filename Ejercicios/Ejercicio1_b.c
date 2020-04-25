@@ -20,7 +20,7 @@ MPI_Comm_rank(MPI_COMM_WORLD, &world_rank);
 char processor_name[MPI_MAX_PROCESSOR_NAME];
 int name_len;
 MPI_Get_processor_name(processor_name, &name_len);
-if(strcmp(processor_name,"nodo1")== 1){
+if(strcmp(processor_name,"nodo1")== 0){
     printf("Entré al loop");
 }
 // Print off a hello world message
