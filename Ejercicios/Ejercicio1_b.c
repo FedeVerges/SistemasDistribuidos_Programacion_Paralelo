@@ -7,6 +7,8 @@ int main(int argc, char** argv) {
 // currently used by MPI implementations, but are there in case future
 // implementations might need the arguments.
 MPI_Init(NULL, NULL);
+char message[50],recieved[50];
+MPI_Status status;
 
 // Get the number of processes
 int world_size;
@@ -20,12 +22,15 @@ MPI_Comm_rank(MPI_COMM_WORLD, &world_rank);
 char processor_name[MPI_MAX_PROCESSOR_NAME];
 int name_len;
 MPI_Get_processor_name(processor_name, &name_len);
-if(strcmp(processor_name,"nodo1")== 0){
-    if(world_rank == 0){
-        printf("proceso 0");
+    if(world_rank == 1){
+        strcpy(message, "hola soy el proceso 1");
+        MPI_Send(message, strlen(message),MPI_CHAR,0,99,MPI_COMM_WORLD);
+    }else{
+         // Codigo del proceso 0
+        MPI_Recv(recieved,50,MPI_CHAR,1,99, MPI_COMM_WORLD, &status);
+        printf("Hola soy el proceso 0 y recibo %s\n\n", recieved);
+
     }
-    printf("Entré al loop");
-}
 // Print off a hello world message
 printf("Hello world from processor %s, rank %d out of %d processors\n",
 processor_name, world_rank, world_size);
