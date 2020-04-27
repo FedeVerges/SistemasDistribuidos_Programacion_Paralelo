@@ -22,10 +22,10 @@ MPI_Comm_rank(MPI_COMM_WORLD, &world_rank);
 char processor_name[MPI_MAX_PROCESSOR_NAME];
 int name_len;
 MPI_Get_processor_name(processor_name, &name_len);
-    if(world_rank == 1){
-        strcpy(message, "hola soy el proceso 1");
-        MPI_Send(message, strlen(message),MPI_CHAR,0,99,MPI_COMM_WORLD);
-    }else{
+    
+    strcpy(message, "hola soy el proceso %d", world_rank);
+    MPI_Send(message, strlen(message),MPI_CHAR,0,99,MPI_COMM_WORLD);
+    if(world_rank == 0){
          // Codigo del proceso 0
         MPI_Recv(recieved,50,MPI_CHAR,1,99, MPI_COMM_WORLD, &status);
         printf("Hola soy el proceso 0 y recibo %s\n\n", recieved);
