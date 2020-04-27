@@ -32,7 +32,9 @@ int indice=1;
       printf("Hola soy el proceso 0 y recibo %s\n\n", recieved);
     }
   }else {
-    strcpy(message, "hola soy el proceso " + world_rank);
+    char numero_proceso[20]; // Entero pasado a String.
+    sprintf(numero_proceso, "%i",world_rank); // Convierto el numero del proceso a string para poder mandarlo por el mensaje.
+    strcpy(message, strcat("hola soy el proceso ", numero_proceso));
     MPI_Send(message, strlen(message),MPI_CHAR,0,99,MPI_COMM_WORLD);
   }
 // Print off a hello world message
