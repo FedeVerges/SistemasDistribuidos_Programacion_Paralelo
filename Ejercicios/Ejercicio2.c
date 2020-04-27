@@ -32,6 +32,7 @@ int main(int argc, char **argv)
     {
         strcpy(message, "Hola, soy el proceso 0");
         MPI_Send(message, strlen(message), MPI_CHAR, world_rank++, 99, MPI_COMM_WORLD);
+        printf("Mensaje Eenviado \n\n");
         MPI_Recv(recieved, 20, MPI_CHAR, world_size--, 99, MPI_COMM_WORLD, &status);
         printf("Recibido el mensaje: %s\n", recieved);
     }
