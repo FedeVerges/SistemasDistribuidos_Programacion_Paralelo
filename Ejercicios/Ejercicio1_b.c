@@ -8,7 +8,7 @@ int main(int argc, char** argv) {
 // currently used by MPI implementations, but are there in case future
 // implementations might need the arguments.
 MPI_Init(NULL, NULL);
-char message[100],recieved[100];
+char message[50],recieved[50];
 MPI_Status status;
 
 // Get the number of processes
@@ -29,12 +29,12 @@ if(world_rank == 0){
 int indice=1;
     for(indice; indice<world_size; indice++){
       MPI_Recv(recieved,50,MPI_CHAR,indice,99, MPI_COMM_WORLD, &status);
-      printf("Hola soy el proceso 0 y recibo %s\n\n", recieved);
+      printf("Hola soy el proceso 0 y recibo un mensaje del proceso %s\n\n", recieved);
     }
   }else {
     char numero_proceso[20]; // Entero pasado a String.
-    sprintf(numero_proceso, "%i",world_rank); // Convierto el numero del proceso a string para poder mandarlo por el mensaje
-    strcpy(message, strcat("hola soy el proceso ", numero_proceso));
+    sprintf(numero_proceso, "%d",world_rank); // Convierto el numero del proceso a string para poder mandarlo por el mensaje
+    strcpy(message, numero_proceso);
     MPI_Send(message, strlen(message),MPI_CHAR,0,99,MPI_COMM_WORLD);
   }
 // Print off a hello world message

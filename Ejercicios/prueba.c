@@ -8,7 +8,7 @@ int main(int argc, char **argv)
    int valor= 20;
    char numero[20];
 
-  
+   sprintf(numero, "%d",valor);
    strcpy(texto, numero);
    printf("hola el valor es: %s ", texto);
    return 0;
