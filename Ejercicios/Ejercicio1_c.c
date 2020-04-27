@@ -28,7 +28,7 @@ if(world_rank == 0){
     // Codigo del proceso 0
   int indice=1;
   for(indice; indice<world_size; indice++){
-    MPI_Recv(recieved,50,MPI_CHAR,MPI_ANY_SOURCE,99, MPI_COMM_WORLD, &status);
+    MPI_Recv(recieved,50,MPI_CHAR,indice,99, MPI_COMM_WORLD, &status);
     printf("Hola soy el proceso 0 y recibo un mensaje del proceso %s\n\n", recieved);
   }
   }else {
@@ -41,5 +41,4 @@ if(world_rank == 0){
 // Finalize the MPI environment. No more MPI calls can be made after this
 MPI_Finalize();
 }
-
 
