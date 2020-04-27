@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <mpi.h>
-// Ejercicio 1.b pero con los mensajes ordenados.
 int main(int argc, char **argv)
 {
   // Initialize the MPI environment. The two arguments to MPI Init are not

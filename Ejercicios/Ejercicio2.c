@@ -5,15 +5,14 @@
 
 int main(int argc, char **argv)
 {
-
-    // Message
-    char message[50];
-    char recieved[50];
     // Initialize the MPI environment. The two arguments to MPI Init are not
     // currently used by MPI implementations, but are there in case future
     // implementations might need the arguments.
     MPI_Init(NULL, NULL);
     MPI_Status status;
+     // Message
+    char message[50];
+    char recieved[50];
 
 
     //Get the number of processes
