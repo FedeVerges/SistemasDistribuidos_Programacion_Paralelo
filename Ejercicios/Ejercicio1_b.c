@@ -1,6 +1,7 @@
-#include <stdlib.h>
-#include <mpi.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <mpi.h>
 
 int main(int argc, char** argv) {
 // Initialize the MPI environment. The two arguments to MPI Init are not
@@ -25,8 +26,9 @@ MPI_Get_processor_name(processor_name, &name_len);
 
 if(world_rank == 0){
     // Codigo del proceso 0
-    for(int i=1; i<world_size; i++){
-      MPI_Recv(recieved,50,MPI_CHAR,i,99, MPI_COMM_WORLD, &status);
+int indice=1;
+    for(indice; indice<world_size; indice++){
+      MPI_Recv(recieved,50,MPI_CHAR,indice,99, MPI_COMM_WORLD, &status);
       printf("Hola soy el proceso 0 y recibo %s\n\n", recieved);
     }
   }else {
