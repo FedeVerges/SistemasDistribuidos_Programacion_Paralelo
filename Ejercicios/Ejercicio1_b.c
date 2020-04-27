@@ -26,21 +26,18 @@ MPI_Get_processor_name(processor_name, &name_len);
 
 if(world_rank == 0){
     // Codigo del proceso 0
-int indice=1;
-    for(indice; indice<world_size; indice++){
-      MPI_Recv(recieved,50,MPI_CHAR,indice,99, MPI_COMM_WORLD, &status);
-      printf("Hola soy el proceso 0 y recibo un mensaje del proceso %s\n\n", recieved);
-    }
+  int indice=1;
+  for(indice; indice<world_size; indice++){
+    MPI_Recv(recieved,50,MPI_CHAR,indice,99, MPI_COMM_WORLD, &status);
+    printf("Hola soy el proceso 0 y recibo un mensaje del proceso %s\n\n", recieved);
+  }
   }else {
     char numero_proceso[20]; // Entero pasado a String.
-    sprintf(numero_proceso, "%d",world_rank); // Convierto el numero del proceso a string para poder mandarlo por el mensaje
+    sprintf(numero_proceso, "%i",world_rank); // Convierto el numero del proceso a string para poder mandarlo por el mensaje
     strcpy(message, numero_proceso);
     MPI_Send(message, strlen(message),MPI_CHAR,0,99,MPI_COMM_WORLD);
   }
-// Print off a hello world message
-printf("Hello world from processor %s, rank %d out of %d processors\n",
-processor_name, world_rank, world_size);
-
+  
 // Finalize the MPI environment. No more MPI calls can be made after this
 MPI_Finalize();
 }
