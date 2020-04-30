@@ -37,12 +37,12 @@ int main(int argc, char **argv)
         MPI_Send(message, strlen(message), MPI_CHAR, partner_Process, 99, MPI_COMM_WORLD);
         printf("Mensaje del proceso 0 enviado \n\n");
         printf("voy a recibir un mensaje del proceso %d", world_size-1);
-        MPI_Recv(recieved, 20, MPI_CHAR, world_size-1, 99, MPI_COMM_WORLD, &status);
+        MPI_Recv(recieved, 50, MPI_CHAR, world_size-1, 99, MPI_COMM_WORLD, &status);
         printf("Recibido el mensaje: %s\n", recieved);
     }
     else
     {
-        MPI_Recv(recieved, 20, MPI_CHAR, world_rank-1, 99, MPI_COMM_WORLD, &status);
+        MPI_Recv(recieved, 50, MPI_CHAR, world_rank-1, 99, MPI_COMM_WORLD, &status);
         printf("Mensaje Recibido del proceso %d", world_rank-1);
         MPI_Send(recieved, strlen(recieved), MPI_CHAR, partner_Process, 99, MPI_COMM_WORLD);
     }
