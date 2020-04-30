@@ -31,6 +31,7 @@ int main(int argc, char **argv)
 
 
     int partner_Process = (world_rank+1) % world_size;
+    printf("%d\n\n", partner_Process);
     if (world_rank == 0)
     {
         strcpy(message, "Hola, soy el proceso 0");
