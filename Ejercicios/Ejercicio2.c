@@ -30,8 +30,8 @@ int main(int argc, char **argv)
     printf("Entrando al if \n\n");
 
 
-    int partner_Process = (world_rank+1) % world_size;
-    printf("%d\n\n", partner_Process);
+    int partner_Process = (world_rank+1) % world_size--;
+    printf("%d\n\n", world_size);
     if (world_rank == 0)
     {
         strcpy(message, "Hola, soy el proceso 0");
