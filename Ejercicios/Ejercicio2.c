@@ -29,6 +29,8 @@ int main(int argc, char **argv)
 
     MPI_Get_processor_name(processor_name, &name_len);
     printf("Entrando al if \n\n");
+
+    // posible implementacion con barriers.
     if (world_rank == 0)
     {
         strcpy(message, "Hola, soy el proceso 0");
@@ -44,11 +46,13 @@ int main(int argc, char **argv)
     }
     else
     {
-        MPI_Recv(recieved, 20, MPI_CHAR, world_rank--, 99, MPI_COMM_WORLD, &status);
+        MPI_Recv(recieved, 20, MPI_CHAR, world_rank-2, 99, MPI_COMM_WORLD, &status);
         MPI_Send(recieved, strlen(recieved), MPI_CHAR, 0, 99, MPI_COMM_WORLD);
-        printf("Recibido el mensaje: %s\n", recieved);
     }
 
     // Finalize the MPI environment. No more MPI calls can be made after this
     MPI_Finalize();
 }
+
+
+// para hacerlo mas general podemos utilizar el modulo.
