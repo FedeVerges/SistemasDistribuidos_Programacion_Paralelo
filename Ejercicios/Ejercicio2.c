@@ -43,6 +43,7 @@ int main(int argc, char **argv)
     else
     {
         MPI_Recv(recieved, 20, MPI_CHAR, world_rank--, 99, MPI_COMM_WORLD, &status);
+        printf("Mensaje Recibido del proceso %d", world_rank--);
         MPI_Send(recieved, strlen(recieved), MPI_CHAR, partner_Process, 99, MPI_COMM_WORLD);
     }
 
