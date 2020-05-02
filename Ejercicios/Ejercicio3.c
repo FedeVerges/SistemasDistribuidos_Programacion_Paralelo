@@ -91,7 +91,7 @@ int main(int argc, char **argv)
 }
 
 int mulitMatrix (int row[], int vector[]){
-    int cant = strlen(row);
+    int cant = sizeof(row);
     int result;
     for (int i =0; i<cant; i+1){
         result += row[i] * vector[i];
