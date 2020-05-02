@@ -30,23 +30,28 @@ int main(int argc, char **argv)
 
 
     int partner_Process = (world_rank+1) % world_size;
-    if (world_rank == 0)
-    {
-        strcpy(message, "Hola, soy el proceso 0");
-        MPI_Send(message, strlen(message), MPI_CHAR, partner_Process, 99, MPI_COMM_WORLD);
-        printf("Mensaje del proceso 0 enviado \n\n");
-        MPI_Recv(recieved, 50, MPI_CHAR, world_size-1, 99, MPI_COMM_WORLD, &status);
-        printf("Recibido el mensaje: %s\n", recieved);
-    }
-    else
-    {
-        MPI_Recv(recieved, 50, MPI_CHAR, world_rank-1, 99, MPI_COMM_WORLD, &status);
-        MPI_Send(recieved, strlen(recieved), MPI_CHAR, partner_Process, 99, MPI_COMM_WORLD);
+    int laps = 5;
+    int indice=0;
+    for(indice; indice<laps; indice+1){
+        
+        if (world_rank == 0)
+        {
+            printf("lap %d \n\n", indice);
+            strcpy(message, "Hola, soy el proceso 0");
+            MPI_Send(message, strlen(message), MPI_CHAR, partner_Process, 99, MPI_COMM_WORLD);
+            printf("Mensaje del proceso 0 enviado \n\n");
+            MPI_Recv(recieved, 50, MPI_CHAR, world_size-1, 99, MPI_COMM_WORLD, &status);
+            printf("Recibido el mensaje: %s\n", recieved);
+        }
+        else
+        {
+            MPI_Recv(recieved, 50, MPI_CHAR, world_rank-1, 99, MPI_COMM_WORLD, &status);
+            MPI_Send(recieved, strlen(recieved), MPI_CHAR, partner_Process, 99, MPI_COMM_WORLD);
+            printf("process %d send message to process %d \n", world_rank, partner_Process);
+        }
+    
     }
 
     // Finalize the MPI environment. No more MPI calls can be made after this
     MPI_Finalize();
 }
-
-
-// para hacerlo mas general podemos utilizar el modulo.
