@@ -62,11 +62,15 @@ int main(int argc, char **argv)
 
     int result_vector[cant_rows];
 
-    MPI_Gather(final_result, 1, MPI_INT, result_vector, 0, MPI_INT, 0, MPI_COMM_WORLD);
+    MPI_Gather(&final_result, 1, MPI_INT, result_vector, 0, MPI_INT, 0, MPI_COMM_WORLD);
 
     if (world_rank == 0){
 
         printf("el resultado de la operacion es 1:  %d \n\n", result_vector[0]);
+        printf("el resultado de la operacion es 2:  %d \n\n", result_vector[1]);
+        printf("el resultado de la operacion es 3:  %d \n\n", result_vector[2]);
+        printf("el resultado de la operacion es 4:  %d \n\n", result_vector[3]);
+ 
     }
     // Finalize the MPI environment. No more MPI calls can be made after this
     MPI_Finalize();
