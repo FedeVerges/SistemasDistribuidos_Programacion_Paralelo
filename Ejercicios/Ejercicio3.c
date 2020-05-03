@@ -61,24 +61,23 @@ int main(int argc, char **argv)
         //     row0[i] = values[i];
         // }
         
-        for(int i=1; i<=total_values; i+=1){ // Generate values.
-            matrix[i] = i;
+        for(int i=0; i<total_values; i+=1){ // Generate values.
+            matrix[i] = i+1;
         }
-        for(int i=1; i<= cant_columns; i+=1){ // generate Vector
-            vector[i]=i;
+        for(int i=0; i< cant_columns; i+=1){ // generate Vector
+            vector[i]=i+1;
         }
 
     }
     MPI_Scatter(matrix, 6, MPI_INT, recvRow, 6, MPI_INT, 0, MPI_COMM_WORLD); // send the colums to each process.
-    MPI_Bcast(vector,6,MPI_INT,0,MPI_COMM_WORLD);
+    MPI_Bcast(&vector,6,MPI_INT,0,MPI_COMM_WORLD);
 
     printf("valor del primer elemento del vector %d \n", vector[0]);
     printf("soy el proceso %d y mi valor de la primer fila  %d \n", world_rank,recvRow[0]);
     
-
-
     // Finalize the MPI environment. No more MPI calls can be made after this
     MPI_Finalize();
+
 }
 
 int mulitMatrix (int row[], int vector[], int size){
@@ -87,4 +86,8 @@ int mulitMatrix (int row[], int vector[], int size){
         result += row[i] * vector[i];
     }
     return result;
+}
+
+void freeData(){
+    
 }
