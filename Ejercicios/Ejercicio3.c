@@ -72,8 +72,8 @@ int main(int argc, char **argv)
     MPI_Scatter(matrix, 6, MPI_INT, recvRow, 6, MPI_INT, 0, MPI_COMM_WORLD); // send the colums to each process.
     MPI_Bcast(vector,6,MPI_INT,0,MPI_COMM_WORLD);
 
-    printf("valor del primer elemento del vector %d ", vector[0]);
-    printf("soy el proceso %d y mi valor de la primer fila  %d ", world_rank,recvRow[0]);
+    printf("valor del primer elemento del vector %d \n", vector[0]);
+    printf("soy el proceso %d y mi valor de la primer fila  %d \n", world_rank,recvRow[0]);
     
 
 
