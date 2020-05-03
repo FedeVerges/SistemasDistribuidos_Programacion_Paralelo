@@ -60,17 +60,18 @@ int main(int argc, char **argv)
     int final_result = mulitMatrix(recvRow, vector, cant_columns);
     printf("soy el proceso %d y mi resultado final es  %d \n", world_rank, final_result);
 
-    int result_vector[6] = {0,0,0,0,0,0};
+    int result_vector[6] = {0, 0, 0, 0, 0, 0};
 
     MPI_Gather(&final_result, 1, MPI_INT, result_vector, 1, MPI_INT, 0, MPI_COMM_WORLD);
 
-    if (world_rank == 0){
-
-        printf("el resultado de la operacion es 1:  %d \n\n", result_vector[0]);
-        printf("el resultado de la operacion es 2:  %d \n\n", result_vector[1]);
-        printf("el resultado de la operacion es 3:  %d \n\n", result_vector[2]);
-        printf("el resultado de la operacion es 4:  %d \n\n", result_vector[3]);
- 
+    if (world_rank == 0)
+    {
+        printf("el resultado de la operacion es ( ");
+        for (int i = 0; i < cant_rows; i += 1)
+        {
+            printf(" %d , ", result_vector[i]);
+        }
+        printf(" ). ");
     }
     // Finalize the MPI environment. No more MPI calls can be made after this
     MPI_Finalize();
