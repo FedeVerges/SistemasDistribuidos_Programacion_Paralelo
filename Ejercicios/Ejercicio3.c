@@ -39,9 +39,13 @@ int main(int argc, char **argv)
     int cant_rows = 6;
     int total_values = cant_columns * cant_rows;
 
-    int *recvRow = (int *) malloc (sizeof(int)* cant_columns); // create the buffer.
-    int *matrix = (int *) malloc (sizeof(int)* total_values); // create the matriz buffer.
-    int *vector  = (int *) malloc (sizeof(int)* cant_columns);
+    // int *recvRow = (int *) malloc (sizeof(int)* cant_columns); // create the buffer.
+    // int *matrix = (int *) malloc (sizeof(int)* total_values); // create the matriz buffer.
+    // int *vector  = (int *) malloc (sizeof(int)* cant_columns);
+    int recvRow [cant_columns];
+    int matrix [total_values];
+    int vector[cant_columns];
+    
     if (world_rank == 0)
     {
         // // Generate Data
@@ -89,5 +93,5 @@ int mulitMatrix (int row[], int vector[], int size){
 }
 
 void freeData(){
-    
+
 }
