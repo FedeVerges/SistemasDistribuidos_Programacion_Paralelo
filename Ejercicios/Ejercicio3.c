@@ -39,32 +39,13 @@ int main(int argc, char **argv)
     int cant_rows = 6;
     int total_values = cant_columns * cant_rows;
 
-    // int *recvRow = (int *) malloc (sizeof(int)* cant_columns); // create the buffer.
-    // int *matrix = (int *) malloc (sizeof(int)* total_values); // create the matriz buffer.
-    // int *vector  = (int *) malloc (sizeof(int)* cant_columns);
+
     int recvRow [cant_columns];
     int matrix [total_values];
     int vector[cant_columns];
-    
+
     if (world_rank == 0)
     {
-        // // Generate Data
-        // int cant_rows_to_send = 5; // The process 0 multiply the first row.
-        // int columns_send [cant_rows_to_send];
-
-        //int matrix[6][6] = {{1, 2, 3, 4, 5, 6}, {7, 8, 9, 10, 11, 12}, {13, 14, 15, 16, 17, 18}, {19, 20, 21, 22, 23, 24}, {25, 26, 27, 28, 29, 30}, {31, 32, 33, 34, 35, 36}};
-        
-        // *(matrix) [36] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12,13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24,25, 26, 27, 28, 29, 30,31, 32, 33, 34, 35, 36};
-        
-        // int array_to_Send [total_values - cant_columns];
-        
-        // int row0 [cant_columns]; // the First row is processed by the process 0.
-        
-        // for (int i=0; i<cant_columns; i+=1){
-        //     vector[i] =i;
-        //     row0[i] = values[i];
-        // }
-        
         for(int i=0; i<total_values; i+=1){ // Generate values.
             matrix[i] = i+1;
         }
@@ -73,11 +54,21 @@ int main(int argc, char **argv)
         }
 
     }
-    MPI_Scatter(matrix, 6, MPI_INT, recvRow, 6, MPI_INT, 0, MPI_COMM_WORLD); // send the colums to each process.
-    MPI_Bcast(&vector,6,MPI_INT,0,MPI_COMM_WORLD);
+    MPI_Scatter(matrix, 6, MPI_INT, recvRow, 6, MPI_INT, 0, MPI_COMM_WORLD); // divide de rows of the matrix.
+    MPI_Bcast(&vector,6,MPI_INT,0,MPI_COMM_WORLD); // Share the vector to each process.
 
     printf("valor del primer elemento del vector %d \n", vector[0]);
     printf("soy el proceso %d y mi valor de la primer fila  %d \n", world_rank,recvRow[0]);
+    int final_result = mulitMatrix(recvRow,vector,cant_columns);
+    printf("soy el proceso %d y mi resultado final es  %d \n", world_rank,final_result);
+
+    if(world_rank ==0){
+        int result_vector [cant_rows];
+        MPI_Gather(&final_result,1,MPI_INT,result_vector,0,MPI_INT,0,MPI_COMM_WORLD);
+        printf("el resultado de la operacion es 1:  %d \n\n", result_vector[0]);
+    }
+
+
     
     // Finalize the MPI environment. No more MPI calls can be made after this
     MPI_Finalize();
