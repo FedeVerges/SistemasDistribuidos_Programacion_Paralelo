@@ -38,6 +38,7 @@ int main(int argc, char **argv)
     int cant_columns = 6;
     int cant_rows = 6;
     int total_values = cant_columns * cant_rows;
+    int final_result [cant_rows];
 
     int recvRow[cant_columns];
     int matrix[total_values];
@@ -57,19 +58,19 @@ int main(int argc, char **argv)
     MPI_Scatter(matrix, 6, MPI_INT, recvRow, 6, MPI_INT, 0, MPI_COMM_WORLD); // divide de rows of the matrix.
     MPI_Bcast(&vector, 6, MPI_INT, 0, MPI_COMM_WORLD);                       // Share the vector to each process.
 
-    int final_result = mulitMatrix(recvRow, vector, cant_columns);
+    final_result[world_rank] = mulitMatrix(recvRow, vector, cant_columns);
     printf("soy el proceso %d y mi resultado final es  %d \n", world_rank, final_result);
 
-    int result_vector[cant_rows];
+    // int result_vector[cant_rows];
 
-    MPI_Gather(&final_result, 1, MPI_INT, result_vector, 0, MPI_INT, 0, MPI_COMM_WORLD);
+    // MPI_Gather(&final_result, 1, MPI_INT, result_vector, 0, MPI_INT, 0, MPI_COMM_WORLD);
 
     if (world_rank == 0){
 
-        printf("el resultado de la operacion es 1:  %d \n\n", result_vector[0]);
-        printf("el resultado de la operacion es 2:  %d \n\n", result_vector[1]);
-        printf("el resultado de la operacion es 3:  %d \n\n", result_vector[2]);
-        printf("el resultado de la operacion es 4:  %d \n\n", result_vector[3]);
+        printf("el resultado de la operacion es 1:  %d \n\n", final_result[0]);
+        printf("el resultado de la operacion es 2:  %d \n\n", final_result[1]);
+        printf("el resultado de la operacion es 3:  %d \n\n", final_result[2]);
+        printf("el resultado de la operacion es 4:  %d \n\n", final_result[3]);
  
     }
     // Finalize the MPI environment. No more MPI calls can be made after this
