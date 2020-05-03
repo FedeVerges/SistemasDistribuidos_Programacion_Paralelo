@@ -58,8 +58,6 @@ int main(int argc, char **argv)
     MPI_Bcast(&vector, 6, MPI_INT, 0, MPI_COMM_WORLD);                       // Share the vector to each process.
 
     int final_result = mulitMatrix(recvRow, vector, cant_columns);
-    printf("soy el proceso %d y mi resultado final es  %d \n", world_rank, final_result);
-
     int result_vector[6] = {0, 0, 0, 0, 0, 0};
 
     MPI_Gather(&final_result, 1, MPI_INT, result_vector, 1, MPI_INT, 0, MPI_COMM_WORLD);
