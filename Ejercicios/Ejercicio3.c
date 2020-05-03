@@ -66,7 +66,7 @@ int main(int argc, char **argv)
             row0[i] = values[i];
         }
         
-        for(int i=0; i< total_values - cant_columns; i++){
+        for(int i=0; i< total_values - cant_columns; i+=1){
             array_to_Send[i] = values[i + cant_columns];
         }
 
@@ -79,7 +79,7 @@ int main(int argc, char **argv)
     }
     else
     {
-        for (int i=0; i<cant_columns; i+1){
+        for (int i=0; i<cant_columns; i+=1){
 
            printf("La fila de la matriz es %d \n\n", recvRow[i]);
            printf("El vector enviado es %d \n\n", vector[i]);
