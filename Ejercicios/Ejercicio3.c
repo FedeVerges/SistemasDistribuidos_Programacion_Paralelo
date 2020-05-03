@@ -39,50 +39,49 @@ int main(int argc, char **argv)
     int cant_rows = 6;
     int total_values = cant_columns * cant_rows;
 
-
-    int recvRow [cant_columns];
-    int matrix [total_values];
+    int recvRow[cant_columns];
+    int matrix[total_values];
     int vector[cant_columns];
 
     if (world_rank == 0)
     {
-        for(int i=0; i<total_values; i+=1){ // Generate values.
-            matrix[i] = i+1;
+        for (int i = 0; i < total_values; i += 1)
+        { // Generate values.
+            matrix[i] = i + 1;
         }
-        for(int i=0; i< cant_columns; i+=1){ // generate Vector
-            vector[i]=i+1;
+        for (int i = 0; i < cant_columns; i += 1)
+        { // generate Vector
+            vector[i] = i + 1;
         }
-
     }
     MPI_Scatter(matrix, 6, MPI_INT, recvRow, 6, MPI_INT, 0, MPI_COMM_WORLD); // divide de rows of the matrix.
-    MPI_Bcast(&vector,6,MPI_INT,0,MPI_COMM_WORLD); // Share the vector to each process.
+    MPI_Bcast(&vector, 6, MPI_INT, 0, MPI_COMM_WORLD);                       // Share the vector to each process.
 
-    printf("valor del primer elemento del vector %d \n", vector[0]);
-    printf("soy el proceso %d y mi valor de la primer fila  %d \n", world_rank,recvRow[0]);
-    int final_result = mulitMatrix(recvRow,vector,cant_columns);
-    printf("soy el proceso %d y mi resultado final es  %d \n", world_rank,final_result);
+    int final_result = mulitMatrix(recvRow, vector, cant_columns);
+    printf("soy el proceso %d y mi resultado final es  %d \n", world_rank, final_result);
 
-    if(world_rank ==0){
-        int result_vector [cant_rows];
-        MPI_Gather(&final_result,1,MPI_INT,result_vector,0,MPI_INT,0,MPI_COMM_WORLD);
+    int result_vector[cant_rows];
+
+    MPI_Gather(&final_result, 1, MPI_INT, result_vector, 0, MPI_INT, 0, MPI_COMM_WORLD);
+
+    if (world_rank == 0){
+
         printf("el resultado de la operacion es 1:  %d \n\n", result_vector[0]);
     }
-
-
-    
     // Finalize the MPI environment. No more MPI calls can be made after this
     MPI_Finalize();
-
 }
 
-int mulitMatrix (int row[], int vector[], int size){
+int mulitMatrix(int row[], int vector[], int size)
+{
     int result = 0;
-    for (int i =0; i<size; i+=1){
+    for (int i = 0; i < size; i += 1)
+    {
         result += row[i] * vector[i];
     }
     return result;
 }
 
-void freeData(){
-
+void freeData()
+{
 }
