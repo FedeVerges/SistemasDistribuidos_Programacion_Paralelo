@@ -38,7 +38,6 @@ int main(int argc, char **argv)
     int cant_columns = 6;
     int cant_rows = 6;
     int total_values = cant_columns * cant_rows;
-    int final_result [cant_rows];
 
     int recvRow[cant_columns];
     int matrix[total_values];
