@@ -35,8 +35,6 @@ int main(int argc, char **argv)
 
     MPI_Get_processor_name(processor_name, &name_len);
 
-    int indice = 0;
-    int vector[6]; // buffer
     int cant_columns = 6;
     int cant_rows = 6;
     int total_values = cant_columns * cant_rows;
