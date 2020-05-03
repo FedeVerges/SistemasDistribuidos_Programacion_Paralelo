@@ -62,7 +62,7 @@ int main(int argc, char **argv)
 
     int result_vector[cant_rows];
 
-    MPI_Gather(&final_result, 1, MPI_INT, result_vector, 0, MPI_INT, 0, MPI_COMM_WORLD);
+    MPI_Gather(final_result, 1, MPI_INT, result_vector, 0, MPI_INT, 0, MPI_COMM_WORLD);
 
     if (world_rank == 0){
 
