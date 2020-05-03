@@ -67,7 +67,7 @@ int main(int argc, char **argv)
         printf("el resultado de la operacion es ( ");
         for (int i = 0; i < cant_rows; i += 1)
         {
-            printf(" %d , ", result_vector[i]);
+            printf(" %d ", result_vector[i]);
         }
         printf(" ). ");
     }
