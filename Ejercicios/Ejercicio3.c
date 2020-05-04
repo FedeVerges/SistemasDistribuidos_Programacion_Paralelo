@@ -5,21 +5,23 @@
 
 int main(int argc, char **argv)
 {
+    int cant_columns = 0;
+    int cant_rows = 0;
+
+    printf("Ingrese la cantidad de filas de la matriz");
+    scanf("%d", &cant_rows);
+
+    printf("Ingrese la cantidad de columnas de la matriz");
+    scanf("%d", &cant_columns);
+
+    int total_values = cant_columns * cant_rows;
+
     // Initialize the MPI environment. The two arguments to MPI Init are not
     // currently used by MPI implementations, but are there in case future
     // implementations might need the arguments.
     MPI_Init(NULL, NULL);
     MPI_Status status;
 
-    // for(int i=0; i< rows; i++){
-    //     int row
-    // }
-
-    // Utilizar broadcast para enviar el vector a los demas procesos.
-
-    // Utilizar Gather para recolectar los resultados del resto de los procesos al proceso 0.
-
-    // Utilizar Scatter para distribuir el vector a los demás procesos.
     //Get the number of processes
     int world_size;
     MPI_Comm_size(MPI_COMM_WORLD, &world_size);
@@ -34,10 +36,6 @@ int main(int argc, char **argv)
     int name_len;
 
     MPI_Get_processor_name(processor_name, &name_len);
-
-    int cant_columns = 6;
-    int cant_rows = 6;
-    int total_values = cant_columns * cant_rows;
 
     int recvRow[cant_columns];
     int matrix[total_values];
@@ -54,11 +52,13 @@ int main(int argc, char **argv)
             vector[i] = i + 1;
         }
     }
-    MPI_Scatter(matrix, 6, MPI_INT, recvRow, 6, MPI_INT, 0, MPI_COMM_WORLD); // divide de rows of the matrix.
-    MPI_Bcast(&vector, 6, MPI_INT, 0, MPI_COMM_WORLD);                       // Share the vector to each process.
+
+    MPI_Scatter(matrix, cant_columns, MPI_INT, recvRow, cant_columns, MPI_INT, 0, MPI_COMM_WORLD); // divide de rows of the matrix.
+    
+    MPI_Bcast(&vector, cant_columns, MPI_INT, 0, MPI_COMM_WORLD);                       // Share the vector to each process.
 
     int final_result = mulitMatrix(recvRow, vector, cant_columns);
-    int result_vector[6] = {0, 0, 0, 0, 0, 0};
+    int result_vector[cant_columns];
 
     MPI_Gather(&final_result, 1, MPI_INT, result_vector, 1, MPI_INT, 0, MPI_COMM_WORLD);
 
