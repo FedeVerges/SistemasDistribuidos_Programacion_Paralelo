@@ -7,15 +7,7 @@ int main(int argc, char **argv)
 {
     int cant_columns = 0;
     int cant_rows = 0;
-
-    printf("Ingrese la cantidad de filas de la matriz");
-    scanf("%d", &cant_rows);
-
-    printf("Ingrese la cantidad de columnas de la matriz");
-    scanf("%d", &cant_columns);
-
-    int total_values = cant_columns * cant_rows;
-
+    int total_values =  cant_columns * cant_rows;
     // Initialize the MPI environment. The two arguments to MPI Init are not
     // currently used by MPI implementations, but are there in case future
     // implementations might need the arguments.
@@ -36,7 +28,6 @@ int main(int argc, char **argv)
     int name_len;
 
     MPI_Get_processor_name(processor_name, &name_len);
-
     int recvRow[cant_columns];
     int matrix[total_values];
     int vector[cant_columns];
@@ -52,6 +43,8 @@ int main(int argc, char **argv)
             vector[i] = i + 1;
         }
     }
+
+    
 
     MPI_Scatter(matrix, cant_columns, MPI_INT, recvRow, cant_columns, MPI_INT, 0, MPI_COMM_WORLD); // divide de rows of the matrix.
     
