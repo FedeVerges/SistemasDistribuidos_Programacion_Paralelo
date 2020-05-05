@@ -6,7 +6,7 @@
 int main(int argc, char **argv)
 {
     int cant_columns = 6;
-    int cant_rows = 6;
+    int cant_rows = 12;
     int total_values =  cant_columns * cant_rows;
     // Initialize the MPI environment. The two arguments to MPI Init are not
     // currently used by MPI implementations, but are there in case future
