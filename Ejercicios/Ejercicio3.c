@@ -47,11 +47,13 @@ int main(int argc, char **argv)
     
 
     MPI_Scatter(matrix, cant_columns, MPI_INT, recvRow, cant_columns, MPI_INT, 0, MPI_COMM_WORLD); // divide de rows of the matrix.
+
     
     MPI_Bcast(&vector, cant_columns, MPI_INT, 0, MPI_COMM_WORLD);                       // Share the vector to each process.
 
     int final_result = mulitMatrix(recvRow, vector, cant_columns);
     int result_vector[cant_columns];
+    
 
     MPI_Gather(&final_result, 1, MPI_INT, result_vector, 1, MPI_INT, 0, MPI_COMM_WORLD);
 
