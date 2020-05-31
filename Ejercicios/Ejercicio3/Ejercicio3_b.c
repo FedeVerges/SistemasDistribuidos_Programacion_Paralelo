@@ -25,8 +25,8 @@ int mulitMatrix(int row[], int vector[], int size)
 
 int main(int argc, char **argv)
 {
-    int cant_columns = 5; // cant_columns = row lenght
-    int cant_rows = 5;
+    int cant_columns = 400; // cant_columns = row lenght
+    int cant_rows = 400;
     int total_values = cant_columns * cant_rows;
 
     int no_repeat = 0;   // To Print correctly the vector.
