@@ -1,5 +1,9 @@
 # Practico 6 MPI
 
+## Ejercicio Practicos
+En mi caso, todos los ejercicios practicos se compilan con el commando "mpicc -std=c99 -o **Nombre del ejecutable** **nombre del archivo .c** " y para ejecutar "mpirun -np **Numero de procesos** **Nombre del ejecutable** **Nombre del archivo.c**"
+
+
 ## Cambios en el ejercicio 1.
 
 Principalmente lo que se puede modificar es "mover" el codigo del proceso 0 a otro, simplemente cambiando la condicion del if(world_rank == <Numero del proceso que desee.>).

@@ -16,6 +16,9 @@ job with 2 processes and that's exactly what you observe in the output.
 To spawn n processes from one parent, you have to use MPI_COMM_SELF.
 */
 
+
+// En este caso particular el programa en el cluster funciona perfecto, pide la cantidad de procesos, localmente no funciona.
+
 //Error Function
 void error(char* string);
 
